@@ -35,7 +35,7 @@
 - Qué significa: Macroregión geográfica de Colombia donde se ubica la entidad.
 - Tipo: texto
 - Unidad o formato: Nombre de la región.
-- Valores válidos: `Bogotá D.C.`, `Caribe`, `Centro Oriental`, `Centro Sur`, `Eje Cafetero`, `Llanos Orientales`, `Pacífico`, `Seaflower`.
+- Valores válidos: `Bogotá D.C.`, `Caribe`, `Centro Oriental`, `Centro Sur`, `Eje Cafetero`, `Llanos Orientales`, `Pacífico`.
 - Si está vacía, significa: No hay valores vacíos en la muestra (0 nulos).
 
 ### DIVIPOLA DEPARTAMENTO
