@@ -1,4 +1,4 @@
-# Ciberseguridad y pérdidas económicas en sectores PYME
+# Incidentes cibernéticos por sector en Colombia
 
 Equipo E8 · Análisis de Datos Básico · Estud-IA (Capa 2)
 Integrantes: Juan Caicedo, Diana Erazo, Miguel Ángel Hurtado
@@ -10,63 +10,63 @@ Integrantes: Juan Caicedo, Diana Erazo, Miguel Ángel Hurtado
 ### 1. Usuario y decisión
 > ¿Quién usará el resultado (una persona o un área) y qué va a decidir con él?
 
-Responsables de tecnología, gerentes o administradores de pequeñas y medianas empresas (PYMES) en los sectores de comercio, servicios y salud. Con este resultado decidirán qué tipos de ciberataques priorizar al momento de asignar presupuesto y definir medidas de mitigación y protección.
+Responsables de seguridad digital, áreas de TI o gestión de riesgo de entidades y sectores productivos en Colombia (como Minas y Energía, Agricultura y Desarrollo Rural, Salud, Comercio, Industria y Turismo, entre otros). Con este resultado decidirán qué tipos de incidentes cibernéticos priorizar en sus acciones de prevención, monitoreo y capacitación según su sector.
 
 ### 2. Pregunta principal
 > Una sola pregunta que ayude a tomar esa decisión.
 
-¿Cuáles son los tipos de ciberataques más frecuentes y con mayor pérdida económica promedio en los sectores empresariales típicamente PYME (comercio, servicios y salud)?
+¿Cuáles son los tipos de incidentes cibernéticos más frecuentes y de mayor gravedad (`IMPORTANCIA`) según el sector en Colombia?
 
 ### 3. Fuente de datos
 > Enlace o nombre de la fuente. ¿Es pública o es una muestra de práctica inventada (sintética)? Si es inventada, dilo aquí.
 
-- **Kaggle · Global Cybersecurity Threats** (fuente pública).
-- **PENDIENTE:** agregar el enlace exacto del dataset en Kaggle y confirmar si el archivo en `datos/originales/` corresponde al conjunto completo o a una muestra.
+- **Portal Nacional de Datos Abiertos (`datos.gov.co`) · Gestión de Incidentes (`agi2-ekag`)** (fuente pública): https://www.datos.gov.co/Ciencia-Tecnolog-a-e-Innovaci-n/Gesti-n-de-Incidentes/agi2-ekag
+- Conjunto completo descargado en `datos/originales/Gestion_de_Incidentes_agi2-ekag.csv` (4.243 filas, 9 columnas).
 
 ### 4. Qué representa una fila
 > Completa la frase: «Cada fila es…». ¿Qué campo distingue una fila de otra?
 
-Cada fila es **PENDIENTE:** confirmar al descargar y revisar el CSV en `datos/originales/` (se espera que represente un incidente o registro de ciberataque por sector, tipo de amenaza y periodo) y definir el campo o clave que distingue una fila de otra.
+Cada fila es un reporte de incidente cibernético registrado con su fecha (`FECHA DE SOLICITUD`), orden de la entidad (`ORDEN DE LA ENTIDAD`), sector (`SECTOR`), ubicación (`REGIÓN`, `DIVIPOLA DEPARTAMENTO`, `DEPARTAMENTO`), taxonomía (`CLASIFICACIÓN TAXONOMÍA`), tipo de incidente (`TIPO DE INCIDENTE`) y gravedad (`IMPORTANCIA`). No existe una columna de identificador único; cada fila se distingue por su posición en el archivo y la combinación de sus atributos.
 
 ### 5. Periodo
 > ¿Qué fechas cubren los datos?
 
-**PENDIENTE:** confirmar el rango exacto de fechas/años una vez descargado el CSV en `datos/originales/`.
+Del **2019-03-22** al **2026-11-11** (`FECHA DE SOLICITUD`).
 
 ### 6. Cuatro indicadores
 > Nombre de cada indicador y, si ya puedes, cómo se calcula (qué se divide entre qué).
 
-1. **Número de incidentes por tipo de ataque:** conteo total de registros agrupados por tipo de ataque (`ransomware`, `phishing`, `malware`, etc.) en los sectores comercio, servicios y salud.
-2. **Pérdida económica promedio por tipo de ataque:** suma de la pérdida económica reportada dividida entre el número de incidentes de cada tipo de ataque en los sectores seleccionados.
-3. **Pérdida económica total por sector:** suma de las pérdidas económicas agrupadas por sector empresarial (comercio, servicios y salud).
-4. **Proporción de incidentes por tipo de ataque y sector:** (número de incidentes de un tipo de ataque en un sector / total de incidentes de ese sector) × 100.
+1. **Total de incidentes por sector:** conteo de reportes (`COUNT(*)`) agrupado por `SECTOR`.
+2. **Proporción de incidentes graves y muy graves por sector (%):** `(incidentes con IMPORTANCIA IN ('Grave', 'Muy Grave') en el sector / total de incidentes del sector) * 100`.
+3. **Frecuencia por clasificación taxonómica y tipo de incidente:** conteo de filas (`COUNT(*)`) agrupado por `CLASIFICACIÓN TAXONOMÍA` y `TIPO DE INCIDENTE` dentro de cada `SECTOR`.
+4. **Distribución porcentual por orden de entidad y región (%):** `(incidentes por ORDEN DE LA ENTIDAD o REGIÓN / total de incidentes del sector o del conjunto) * 100`.
 
 ### 7. Fuera de alcance
 > Lo que este proyecto NO va a responder.
 
-- No evalúa vulnerabilidades técnicas específicas de modelos de inteligencia artificial (IA) ni diseña sistemas de monitoreo o detección en tiempo real.
-- No incluye datos propios o exclusivos de PYMES de Medellín ni encuestas primarias (los sectores comercio, servicios y salud del dataset global se usan como referencia de sectores típicamente PYME).
-- No abarca la implementación técnica de controles de seguridad ni auditorías de infraestructura.
+- No calcula pérdidas económicas en dinero ni cantidad de usuarios afectados (el conjunto de datos no incluye esas variables).
+- No clasifica ni segmenta empresas por tamaño (PYMES vs. grandes empresas); el análisis es por `SECTOR` y `ORDEN DE LA ENTIDAD` (`Nacional`, `Territorial`, `Privada`).
+- No evalúa vulnerabilidades técnicas de modelos de IA ni implementa sistemas de monitoreo en tiempo real.
 
 ## Si alcanzas hoy (para el jueves es obligatorio)
 
 ### Dos comparaciones útiles
 > Por ejemplo: por mes, por comuna, por categoría.
 
-1. **Por tipo de ataque (`ransomware`, `phishing`, `malware`, etc.):** comparar frecuencia de incidentes frente a pérdida económica promedio.
-2. **Por sector empresarial (comercio vs. servicios vs. salud):** comparar si el tipo de ataque más frecuente o más costoso varía entre sectores.
+1. **Por sector (`SECTOR`):** comparar volumen de incidentes y porcentaje de casos `Grave` / `Muy Grave` entre sectores (por ejemplo, `Minas y Energía`, `Agricultura y Desarrollo Rural`, `Salud`, `Comercio, Industria y Turismo` y `Privado`).
+2. **Por tipo de incidente (`TIPO DE INCIDENTE`) y año (`FECHA DE SOLICITUD`):** comparar qué amenazas predominan en cada sector y cómo evolucionan entre 2019 y 2026.
 
 ### Tres riesgos de calidad
 > ¿Qué podría venir mal en los datos? ¿Qué harías si la fuente falla?
 
-1. **Ausencia de filtro por tamaño de empresa:** el dataset agrupa por sector y no necesariamente separa PYMES de grandes empresas, lo que puede sesgar los promedios de pérdida económica. Mitigación: documentar explícitamente esta limitación en el análisis.
-2. **Valores nulos, atípicos o escalas inconsistentes en pérdida económica:** registros sin monto o con valores extremos que distorsionen el promedio. Mitigación: revisar nulos y distribución en `notebooks/02_limpieza.ipynb` y reportar también mediana o rangos si es necesario.
-3. **Falla o indisponibilidad de la fuente / cobertura incompleta:** si el dataset no contiene alguno de los sectores esperados o tiene años faltantes, se documentará el alcance real y, de ser necesario, se buscará un conjunto alternativo público de incidentes cibernéticos en Kaggle.
+1. **Inconsistencias de mayúsculas/minúsculas en categorías:** hay etiquetas duplicadas por capitalización en `SECTOR` (`Ambiente Y Desarrollo Sostenible` vs. `Ambiente y Desarrollo Sostenible`), `CLASIFICACIÓN TAXONOMÍA` (`Contenido Dañino` vs. `Contenido dañino`, `Intento de Intrusión` vs. `Intento de intrusión`) y `TIPO DE INCIDENTE` (`Mala Configuración` vs. `Mala configuración`). Mitigación: normalizar texto en `notebooks/02_limpieza.ipynb`.
+2. **Sesgo de reporte entre entidades públicas y privadas:** predominan reportes de entidades de orden `Nacional` o `Territorial` sobre el orden `Privada`, lo que puede reflejar obligación de reporte más que exposición real. Mitigación: desagregar siempre por `ORDEN DE LA ENTIDAD` y documentar el límite.
+3. **Indisponibilidad o cambio de esquema en `datos.gov.co`:** si el portal cambia columnas o falla, se trabaja sobre la copia local congelada en `datos/originales/Gestion_de_Incidentes_agi2-ekag.csv` para mantener reproducibilidad.
 
 ### Mapa de preguntas
-- ¿Qué pasó? Identificar qué tipos de ciberataques tienen mayor frecuencia y mayor pérdida económica promedio en los sectores comercio, servicios y salud.
-- ¿Dónde o cuándo es distinto? **PENDIENTE:** comparar los resultados entre sectores (comercio, servicios, salud) y, según las columnas disponibles en el CSV, por año o país/región.
-- ¿Qué recomendaría y con qué límites? Recomendar a las PYMES de comercio, servicios y salud priorizar sus medidas de prevención frente a los tipos de ataque con mayor frecuencia e impacto económico; con el límite de que las cifras provienen de un dataset global sectorial y no de una muestra exclusiva de PYMES locales.
+- ¿Qué pasó? Identificar los tipos de incidentes cibernéticos más frecuentes y su nivel de importancia en los distintos sectores de Colombia.
+- ¿Dónde o cuándo es distinto? Comparar diferencias entre sectores (`SECTOR`), regiones y departamentos (`REGIÓN`, `DEPARTAMENTO`), orden de la entidad (`ORDEN DE LA ENTIDAD`) y años (`2019`–`2026`).
+- ¿Qué recomendaría y con qué límites? Recomendar controles y priorización de respuesta según los incidentes predominantes y más graves de cada sector; con el límite de que los registros dependen de incidentes reportados y no miden impacto financiero ni tamaño de empresa.
 
 ## Archivos del proyecto
 
